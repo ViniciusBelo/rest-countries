@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './CountryList.css'; // Adicionando o CSS
 
 function CountryList() {
   const [countries, setCountries] = useState([]);
@@ -26,20 +27,25 @@ function CountryList() {
   }, [searchTerm, countries]);
 
   return (
-    <div>
-      <h1>Lista de Países</h1>
+    <div className="country-list-container">
+      <h1 className="title">Explorar Países</h1>
       <input
         type="text"
+        className="search-input"
         placeholder="Buscar por país"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div className="country-list">
         {filteredCountries.map((country) => (
-          <div key={country.cca3}>
-            <Link to={`/country/${country.cca3}`}>
+          <div className="country-card" key={country.cca3}>
+            <Link to={`/country/${country.cca3}`} className="country-link">
               <h2>{country.name.common}</h2>
-              <img src={country.flags.svg} alt={`Bandeira de ${country.name.common}`} width="100" />
+              <img
+                src={country.flags.svg}
+                alt={`Bandeira de ${country.name.common}`}
+                className="country-flag"
+              />
               <p>Capital: {country.capital ? country.capital[0] : 'N/A'}</p>
               <p>Região: {country.region}</p>
             </Link>
