@@ -1,0 +1,23 @@
+.country-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.country-list div {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.country-list div:hover {
+  transform: scale(1.05);
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 300px;
+}
