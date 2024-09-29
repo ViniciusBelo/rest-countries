@@ -23,7 +23,7 @@ Siga as instruções abaixo para rodar o projeto localmente:
 
 1. Clone o repositório
 Se você ainda não clonou o repositório, faça isso com o seguinte comando:     
-```git clone https://github.com/SEU_USUARIO/rest-countries.git```          
+```git clone https://github.com/ViniciusBelo/rest-countries.git```          
 Substitua SEU_USUARIO pelo seu nome de usuário no GitHub.
 
 2. Navegue até a pasta do projeto
