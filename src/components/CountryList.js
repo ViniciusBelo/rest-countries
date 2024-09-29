@@ -7,13 +7,12 @@ function CountryList() {
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const [region, setRegion] = useState('');
-  const [subregion, setSubregion] = useState('');
-  const [populationRange, setPopulationRange] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('name'); // Padrão: ordenar por nome
+  const [regionFilter, setRegionFilter] = useState('');
+  const [subregionFilter, setSubregionFilter] = useState('');
+  const [populationFilter, setPopulationFilter] = useState('');
+  const [subregions, setSubregions] = useState([]); // Estado para armazenar sub-regiões
 
   useEffect(() => {
-    // Faz a requisição para a API RestCountries
     axios.get('https://restcountries.com/v3.1/all')
       .then(response => {
         setCountries(response.data);
@@ -22,38 +21,30 @@ function CountryList() {
       .catch(error => console.error('Erro ao buscar países', error));
   }, []);
 
-  // Função para aplicar filtros
+  // Filtrar e atualizar a lista de países
   useEffect(() => {
-    let results = countries;
-
-    // Filtro de busca
-    if (searchTerm) {
-      results = results.filter(country =>
-        country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+    let results = countries.filter(country =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
+    if (regionFilter) {
+      results = results.filter(country => country.region === regionFilter);
+    }
+    
+    if (subregionFilter) {
+      results = results.filter(country => country.subregion === subregionFilter);
     }
 
-    // Filtro por região
-    if (region) {
-      results = results.filter(country => country.region === region);
-    }
-
-    // Filtro por sub-região
-    if (subregion) {
-      results = results.filter(country => country.subregion === subregion);
-    }
-
-    // Filtro por intervalo de população
-    if (populationRange) {
+    if (populationFilter) {
       results = results.filter(country => {
         const population = country.population;
-        switch (populationRange) {
+        switch (populationFilter) {
           case '<1M':
             return population < 1000000;
           case '1M-10M':
             return population >= 1000000 && population <= 10000000;
           case '10M-100M':
-            return population > 10000000 && population <= 100000000;
+            return population >= 10000000 && population <= 100000000;
           case '>100M':
             return population > 100000000;
           default:
@@ -62,38 +53,34 @@ function CountryList() {
       });
     }
 
-    // Ordenação
-    results = results.sort((a, b) => {
-      if (sortCriteria === 'name') {
-        return a.name.common.localeCompare(b.name.common);
-      } else if (sortCriteria === 'population') {
-        return a.population - b.population;
-      } else if (sortCriteria === 'area') {
-        return a.area - b.area;
-      } else {
-        return 0;
-      }
-    });
-
     setFilteredCountries(results);
-  }, [searchTerm, region, subregion, populationRange, sortCriteria, countries]);
+  }, [searchTerm, regionFilter, subregionFilter, populationFilter, countries]);
+
+  // Atualiza as sub-regiões com base na região selecionada
+  useEffect(() => {
+    if (regionFilter) {
+      const filteredSubregions = [...new Set(countries
+        .filter(country => country.region === regionFilter)
+        .map(country => country.subregion)
+        .filter(subregion => subregion))]; // Filtra sub-regiões não vazias
+      setSubregions(filteredSubregions);
+    } else {
+      setSubregions([]); // Limpa sub-regiões se nenhuma região for selecionada
+    }
+  }, [regionFilter, countries]);
 
   return (
     <div className="country-list-container">
-      <h1 className="title">Explorar Países</h1>
-
-      {/* Campo de busca */}
+      <h1>Lista de Países</h1>
       <input
+        className="search-bar"
         type="text"
-        className="search-input"
         placeholder="Buscar por país"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-
-      {/* Filtros de Região e Sub-região */}
-      <div className="filters">
-        <select value={region} onChange={(e) => setRegion(e.target.value)}>
+      <div className="filters-container">
+        <select className="filter-select" onChange={(e) => setRegionFilter(e.target.value)}>
           <option value="">Filtrar por Região</option>
           <option value="Africa">África</option>
           <option value="Americas">Américas</option>
@@ -101,46 +88,31 @@ function CountryList() {
           <option value="Europe">Europa</option>
           <option value="Oceania">Oceania</option>
         </select>
-
-        <select value={subregion} onChange={(e) => setSubregion(e.target.value)}>
+        
+        <select className="filter-select" onChange={(e) => setSubregionFilter(e.target.value)}>
           <option value="">Filtrar por Sub-região</option>
-          <option value="Southern Europe">Europa do Sul</option>
-          <option value="Northern Africa">Norte da África</option>
-          <option value="Central America">América Central</option>
-          {/* Adicione outras sub-regiões conforme necessário */}
+          {subregions.map(subregion => (
+            <option key={subregion} value={subregion}>{subregion}</option>
+          ))}
         </select>
 
-        {/* Filtro por intervalo de população */}
-        <select value={populationRange} onChange={(e) => setPopulationRange(e.target.value)}>
+        <select className="filter-select" onChange={(e) => setPopulationFilter(e.target.value)}>
           <option value="">Filtrar por População</option>
           <option value="<1M">Menos de 1M</option>
           <option value="1M-10M">1M - 10M</option>
           <option value="10M-100M">10M - 100M</option>
           <option value=">100M">Mais de 100M</option>
         </select>
-
-        {/* Ordenação */}
-        <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
-          <option value="name">Ordenar por Nome</option>
-          <option value="population">Ordenar por População</option>
-          <option value="area">Ordenar por Área</option>
-        </select>
       </div>
-
-      {/* Lista de países */}
+      
       <div className="country-list">
         {filteredCountries.map((country) => (
-          <div className="country-card" key={country.cca3}>
-            <Link to={`/country/${country.cca3}`} className="country-link">
+          <div key={country.cca3} className="country-card">
+            <Link to={`/country/${country.cca3}`}>
               <h2>{country.name.common}</h2>
-              <img
-                src={country.flags.svg}
-                alt={`Bandeira de ${country.name.common}`}
-                className="country-flag"
-              />
+              <img src={country.flags.svg} alt={`Bandeira de ${country.name.common}`} width="100" />
               <p>Capital: {country.capital ? country.capital[0] : 'N/A'}</p>
               <p>Região: {country.region}</p>
-              <p>População: {country.population.toLocaleString()}</p>
             </Link>
           </div>
         ))}
