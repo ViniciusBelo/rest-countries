@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# 🌍 Rest Countries Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é uma aplicação web em React que consome a API REST Countries e exibe informações sobre países ao redor do mundo. O usuário pode filtrar países por nome, região, sub-região e população, além de visualizar detalhes como a bandeira, capital e outros dados relevantes.
 
-## Available Scripts
+## 🚀 Funcionalidades
 
-In the project directory, you can run:
+- Buscar países pelo nome.
+- Filtrar por região (ex: África, Américas).
+- Filtrar por sub-região.
+- Filtrar por intervalos de população (ex: <1M, 1M-10M, etc.).
+- Ordenação por nome, população e área.
+- Exibir detalhes completos de um país, como domínio de internet (código TLD).
 
-### `npm start`
+## 💻 Pré-requisitos
+Antes de iniciar, certifique-se de que você atendeu aos seguintes requisitos:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Você instalou a versão mais recente de Node.js e npm.
+- Um editor de código como o Visual Studio Code.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Configuração e Execução
 
-### `npm test`
+Siga as instruções abaixo para rodar o projeto localmente:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone o repositório
+Se você ainda não clonou o repositório, faça isso com o seguinte comando:     
+```git clone https://github.com/SEU_USUARIO/rest-countries.git```          
+Substitua SEU_USUARIO pelo seu nome de usuário no GitHub.
 
-### `npm run build`
+2. Navegue até a pasta do projeto
+```cd rest-countries```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Instale as dependências
+Execute o comando abaixo para instalar todas as dependências do projeto:
+```npm install```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Inicie o servidor de desenvolvimento
+Execute o seguinte comando para iniciar o servidor local:
+```npm start```
+O projeto será iniciado e estará acessível em http://localhost:3000/.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ Tecnologias Utilizadas
+- React - Biblioteca JavaScript para construção de interfaces de usuário.
+- Axios - Cliente HTTP para realizar as requisições à API.
+- React Router - Biblioteca de navegação e roteamento para aplicações React.
+- CSS3 - Para estilização da interface de usuário.
 
-### `npm run eject`
+## 📝 Contribuição
+Se você quiser contribuir com o projeto:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Faça um fork do projeto.
+2. Crie uma branch com a nova feature (git checkout -b feature/nova-feature).
+3. Comite suas mudanças (git commit -m 'Adiciona nova feature').
+4. Dê um push na branch (git push origin feature/nova-feature).
+5. Abra um Pull Request.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🧑‍💻 Autor
+Este projeto foi desenvolvido por Vinícius Belo.
